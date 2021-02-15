@@ -58,7 +58,12 @@ There are no dennys outside the US. There are la quintas outside the US
 
 ### Exercise 4
 
-…
+One way that might be complicated is determining the latitude and
+longitude limits of the united states and limiting the data set to just
+those that fit within those limits. Another way (and I think this is the
+one we’re doing) is to have a list of the states and check to see if the
+state values of laquinta and dennys match that list. Any that don’t are
+locations outside the united states.
 
 ### Exercise 5
 
