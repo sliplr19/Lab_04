@@ -54,8 +54,7 @@ particular la quinta.
 ### Exercise 3
 
 There are no dennys outside the US. There are la quintas outside the US
-(Mexico, New Zealand, Honduras, Turkey, Chile, Columbia, and Canada)d
-and also say you’re looking forward to working with them this summer
+(Mexico, New Zealand, Honduras, Turkey, Chile, Columbia, and Canada).
 
 ### Exercise 4
 
