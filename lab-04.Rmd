@@ -73,3 +73,16 @@ Yes, I just spent the past hour trying to find the perfect data set of global po
 * SL = Mexico
 * FM = Honduras
 * BC = Canada 
+
+### Exercise 8
+
+```{r lq_country}
+laquinta <- laquinta %>%
+  mutate(country = case_when(
+    state %in% state.abb     ~ "United States",
+    state %in% c("AG", "QR", "CH", "NL", "VE", "PU", "SL") ~ "Mexico",
+    state %in% c("ON", "BC") ~ "Canada",
+    state == "ANT"           ~ "Colombia",
+    state == "FM"            ~ "Honduras"
+  ))
+``` 
