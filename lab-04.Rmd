@@ -84,5 +84,24 @@ laquinta <- laquinta %>%
     state %in% c("ON", "BC") ~ "Canada",
     state == "ANT"           ~ "Colombia",
     state == "FM"            ~ "Honduras"
-  ))
+  )) %>%
+  filter(country == "United States")
 ``` 
+
+### Exercise 9
+
+```{r den_states}
+dennys %>%
+  count(state) %>%
+  arrange(desc(n))
+```
+
+California has the most dennys (403). Delaware has the least number of dennys (1).
+
+```{r lq_state}
+laquinta %>%
+  count(state) %>%
+  arrange(desc(n))
+```
+
+Texas has the most la quintas (237) and Maine has the least number of la quintas (1).

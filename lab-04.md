@@ -126,3 +126,67 @@ Oh well.
   - SL = Mexico
   - FM = Honduras
   - BC = Canada
+
+### Exercise 8
+
+``` r
+laquinta <- laquinta %>%
+  mutate(country = case_when(
+    state %in% state.abb     ~ "United States",
+    state %in% c("AG", "QR", "CH", "NL", "VE", "PU", "SL") ~ "Mexico",
+    state %in% c("ON", "BC") ~ "Canada",
+    state == "ANT"           ~ "Colombia",
+    state == "FM"            ~ "Honduras"
+  )) %>%
+  filter(country == "United States")
+```
+
+### Exercise 9
+
+``` r
+dennys %>%
+  count(state) %>%
+  arrange(desc(n))
+```
+
+    ## # A tibble: 51 x 2
+    ##    state     n
+    ##    <chr> <int>
+    ##  1 CA      403
+    ##  2 TX      200
+    ##  3 FL      140
+    ##  4 AZ       83
+    ##  5 IL       56
+    ##  6 NY       56
+    ##  7 WA       49
+    ##  8 OH       44
+    ##  9 MO       42
+    ## 10 PA       40
+    ## # ... with 41 more rows
+
+California has the most dennys (403). Delaware has the least number of
+dennys (1).
+
+``` r
+laquinta %>%
+  count(state) %>%
+  arrange(desc(n))
+```
+
+    ## # A tibble: 48 x 2
+    ##    state     n
+    ##    <chr> <int>
+    ##  1 TX      237
+    ##  2 FL       74
+    ##  3 CA       56
+    ##  4 GA       41
+    ##  5 TN       30
+    ##  6 OK       29
+    ##  7 LA       28
+    ##  8 CO       27
+    ##  9 NM       19
+    ## 10 NY       19
+    ## # ... with 38 more rows
+
+Texas has the most la quintas (237) and Maine has the least number of la
+quintas (1).
