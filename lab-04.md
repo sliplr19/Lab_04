@@ -7,6 +7,8 @@ Lindley
 
 ``` r
 library(tidyverse) 
+#install.packages("wesanderson")
+library(wesanderson)
 ```
 
 ``` r
@@ -189,4 +191,122 @@ laquinta %>%
     ## # ... with 38 more rows
 
 Texas has the most la quintas (237) and Maine has the least number of la
-quintas (1).
+quintas (1). If Mitch Hedburg is right and la quintas and dennys were
+paired, I think you’d expect them to have the highest and lowest numbers
+in the same states.
+
+### Exercise 10
+
+``` r
+dennys %>%
+  count(state) %>%
+  inner_join(states, by = c("state" = "abbreviation")) %>%
+  mutate(per_square_mile = n/(area/1000)) %>%
+  arrange(desc(per_square_mile))
+```
+
+    ## # A tibble: 51 x 5
+    ##    state     n name                     area per_square_mile
+    ##    <chr> <int> <chr>                   <dbl>           <dbl>
+    ##  1 DC        2 District of Columbia     68.3          29.3  
+    ##  2 RI        5 Rhode Island           1545.            3.24 
+    ##  3 CA      403 California           163695.            2.46 
+    ##  4 CT       12 Connecticut            5543.            2.16 
+    ##  5 FL      140 Florida               65758.            2.13 
+    ##  6 MD       26 Maryland              12406.            2.10 
+    ##  7 NJ       10 New Jersey             8723.            1.15 
+    ##  8 NY       56 New York              54555.            1.03 
+    ##  9 IN       37 Indiana               36420.            1.02 
+    ## 10 OH       44 Ohio                  44826.            0.982
+    ## # ... with 41 more rows
+
+D.C. has the most dennys per thousand square miles (29.3). Alaska has
+the fewest dennys per thousand square mile (.005). This makes sense
+because D.C. is the smallest area on the list, which makes the
+denominator \< 1. Also, Alaska is super large (I think it’s the biggest
+state) and has very few dennys.
+
+``` r
+laquinta %>%
+  count(state) %>%
+  inner_join(states, by = c("state" = "abbreviation")) %>%
+  mutate(per_square_mile = n/(area/1000)) %>%
+  arrange(desc(per_square_mile))
+```
+
+    ## # A tibble: 48 x 5
+    ##    state     n name             area per_square_mile
+    ##    <chr> <int> <chr>           <dbl>           <dbl>
+    ##  1 RI        2 Rhode Island    1545.           1.29 
+    ##  2 FL       74 Florida        65758.           1.13 
+    ##  3 CT        6 Connecticut     5543.           1.08 
+    ##  4 MD       13 Maryland       12406.           1.05 
+    ##  5 TX      237 Texas         268596.           0.882
+    ##  6 TN       30 Tennessee      42144.           0.712
+    ##  7 GA       41 Georgia        59425.           0.690
+    ##  8 NJ        5 New Jersey      8723.           0.573
+    ##  9 MA        6 Massachusetts  10554.           0.568
+    ## 10 LA       28 Louisiana      52378.           0.535
+    ## # ... with 38 more rows
+
+Rhode island has the most la quintas per thousand square mile (1.3). The
+same reasoning as for D.C. above holds for Rhode Island. Alaska has the
+fewest la quintas per thousand square mile (0.003) because of the reason
+I gave above.
+
+``` r
+dennys <- dennys %>%
+  mutate(establishment = "Denny's")
+laquinta <- laquinta %>%
+  mutate(establishment = "La Quinta")
+```
+
+``` r
+dn_lq <- bind_rows(dennys, laquinta)
+```
+
+``` r
+ggplot(dn_lq, mapping = aes(x = longitude, y = latitude, color = establishment)) +
+  geom_point() +
+  labs(title = "Latitude and Longitude of Denny's and La Quintas", x = "Longitude (Decimal degrees)", y = "Latitude (Decimal degrees)") +
+    scale_colour_grey(start = 0, end = .7) +
+  theme_bw()
+```
+
+![](lab-04_files/figure-gfm/all_plot-1.png)<!-- -->
+
+### Exercise 11
+
+``` r
+dn_lq %>%
+  filter(state == "NC") %>%
+  ggplot(mapping = aes(x = longitude, y = latitude, color = establishment)) +
+  geom_point(alpha = .6) +
+  labs(title = "Latitude and Longitude of North Carolina Denny's and La Quintas", x = "Longitude (Decimal degrees)", y = "Latitude (Decimal degrees)") +
+   scale_color_manual(values = wes_palette("BottleRocket2", n = 2))
+```
+
+![](lab-04_files/figure-gfm/NC-1.png)<!-- -->
+
+While there are some la quintas that are near dennys (particularly
+between longitude -79 and -78 and around -81), there are la quintas not
+next to dennys. For example the point of 36.5 latitude is nowhere near a
+dennys. Even so, it seems to be more common for a la quinta to be near a
+dennys than not.
+
+``` r
+dn_lq %>%
+  filter(state == "TX") %>%
+  ggplot(mapping = aes(x = longitude, y = latitude, color = establishment)) +
+  geom_point(alpha = .4) +
+  labs(title = "Latitude and Longitude of North Carolina Denny's and La Quintas", x = "Longitude (Decimal degrees)", y = "Latitude (Decimal degrees)") +
+   scale_color_manual(values = wes_palette("BottleRocket2", n = 2))
+```
+
+![](lab-04_files/figure-gfm/TX-1.png)<!-- -->
+
+The claim seems to be more true here. There are three main clusters of
+la quintas and dennys overlapping. Even outside the cluters, the la
+quinta and dennys points are close. There are some la quintas at the
+35-36 latitude without dennys, but that is not as common as the two
+being paired. So, I think, generally, the Mitch Hedburg joke is true.
