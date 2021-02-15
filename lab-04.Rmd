@@ -9,7 +9,6 @@ output: github_document
 
 ```{r load-packages, message = FALSE, warning = FALSE}
 library(tidyverse) 
- 
 ```
 
 ```{r load-data, message = FALSE}
@@ -42,11 +41,35 @@ One way that might be complicated is determining the latitude and longitude limi
 
 ### Exercise 5
 
-...
+```{r den_not_US}
+dennys %>%
+  filter(!(state %in% states$abbreviation))
+```
+This confirms what I saw on the website: no dennys outside the US.
 
 ### Exercise 6
 
-...
+```{r den_US}
+dennys <- dennys %>%
+  mutate(country = "United States")
+```
 
-Add exercise headings as needed.
+### Exercise 7
 
+```{r laq_not_US}
+laquinta %>%
+  filter(!(state %in% states$abbreviation))
+```
+Yes, I just spent the past hour trying to find the perfect data set of global postal codes to make a code to find country by postal code, and I failed to find one that was suitable. I'm settling for just googling it. Oh well. 
+
+* AG = Mexico
+* QR = Mexico
+* CH = Mexico
+* NL = Mexico
+* ANT = Colombia
+* ON = Canada
+* VE = Mexico
+* PU = Mexico
+* SL = Mexico
+* FM = Honduras
+* BC = Canada 

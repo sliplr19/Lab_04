@@ -67,10 +67,62 @@ locations outside the united states.
 
 ### Exercise 5
 
-…
+``` r
+dennys %>%
+  filter(!(state %in% states$abbreviation))
+```
+
+    ## # A tibble: 0 x 6
+    ## # ... with 6 variables: address <chr>, city <chr>, state <chr>, zip <chr>,
+    ## #   longitude <dbl>, latitude <dbl>
+
+This confirms what I saw on the website: no dennys outside the US.
 
 ### Exercise 6
 
-…
+``` r
+dennys <- dennys %>%
+  mutate(country = "United States")
+```
 
-Add exercise headings as needed.
+### Exercise 7
+
+``` r
+laquinta %>%
+  filter(!(state %in% states$abbreviation))
+```
+
+    ## # A tibble: 14 x 6
+    ##    address                     city               state zip   longitude latitude
+    ##    <chr>                       <chr>              <chr> <chr>     <dbl>    <dbl>
+    ##  1 Carretera Panamericana Sur~ "\nAguascalientes" AG    20345    -102.     21.8 
+    ##  2 Av. Tulum Mza. 14 S.M. 4 L~ "\nCancun"         QR    77500     -86.8    21.2 
+    ##  3 Ejercito Nacional 8211      "Col\nPartido Igl~ CH    32528    -106.     31.7 
+    ##  4 Blvd. Aeropuerto 4001       "Parque Industria~ NL    66600    -100.     25.8 
+    ##  5 Carrera 38 # 26-13 Avenida~ "\nMedellin Colom~ ANT   0500~     -75.6     6.22
+    ##  6 AV. PINO SUAREZ No. 1001    "Col. Centro\nMon~ NL    64000    -100.     25.7 
+    ##  7 Av. Fidel Velazquez #3000 ~ "\nMonterrey"      NL    64190    -100.     25.7 
+    ##  8 63 King Street East         "\nOshawa"         ON    L1H1~     -78.9    43.9 
+    ##  9 Calle Las Torres-1 Colonia~ "\nPoza Rica"      VE    93210     -97.4    20.6 
+    ## 10 Blvd. Audi N. 3 Ciudad Mod~ "\nSan Jose Chiap~ PU    75010     -97.8    19.2 
+    ## 11 Ave. Zeta del Cochero No 4~ "Col. ReservaTerr~ PU    72810     -98.2    19.0 
+    ## 12 Av. Benito Juarez 1230 B (~ "\nSan Luis Potos~ SL    78399    -101.     22.1 
+    ## 13 Blvd. Fuerza Armadas        "contiguo Mall La~ FM    11101     -87.2    14.1 
+    ## 14 8640 Alexandra Rd           "\nRichmond"       BC    V6X1~    -123.     49.2
+
+Yes, I just spent the past hour trying to find the perfect data set of
+global postal codes to make a code to find country by postal code, and I
+failed to find one that was suitable. I’m settling for just googling it.
+Oh well.
+
+  - AG = Mexico
+  - QR = Mexico
+  - CH = Mexico
+  - NL = Mexico
+  - ANT = Colombia
+  - ON = Canada
+  - VE = Mexico
+  - PU = Mexico
+  - SL = Mexico
+  - FM = Honduras
+  - BC = Canada
